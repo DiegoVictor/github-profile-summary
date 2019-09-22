@@ -13,17 +13,17 @@ export const Container = styled.div`
   font-size: 12px;
   font-weight: 900;
   height: calc(100%);
-  min-width: 1%;
+  min-width: 5%;
   overflow: hidden;
   padding: 5px;
   position: relative;
   text-transform: uppercase;
   transition: all 0.5s;
-  width: ${props => props.size}%;
+  width: ${props => props.percent}%;
 
   &:hover {
-    box-shadow: 0px 0px 5px ${props => props.bg};
-    min-width: 90%;
+    box-shadow: 0px 0px 5px ${props => props.color};
+    min-width: 70%;
 
     ~ div {
       min-width: 5%;
