@@ -35,13 +35,42 @@ export const User = styled.div`
   > div {
     display: flex;
     padding: 10px;
+  }
+`;
 
+export const Bio = styled.div`
+  align-items: center;
+  display: flex;
+  position: relative;
+  width: 220px;
+
+  &:hover {
     img {
-      border-radius: 4px;
-      display: block;
-      height: auto;
-      width: 220px;
+      opacity: 0.25;
     }
+
+    p {
+      opacity: 1;
+    }
+  }
+
+  img {
+    border-radius: 4px;
+    display: block;
+    height: auto;
+    transition: all 0.5s;
+    width: 100%;
+  }
+
+  p {
+    font-size: 13px;
+    padding: 6px;
+    opacity: 0;
+    position: absolute;
+    text-align: center;
+    transition: all 0.5s;
+    z-index: 2;
+    width: 100%;
   }
 `;
 
@@ -75,11 +104,13 @@ export const Summary = styled.div`
       overflow: hidden;
 
       > div:first-child {
-        border-radius: 4px 0px 0px 4px;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
       }
 
       > div:last-child {
-        border-radius: 0px 4px 4px 0px;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
       }
     }
 
