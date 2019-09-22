@@ -2,19 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Container } from './styles';
 
-export default function Percent({ bg, color, size, label }) {
+export default function Percent({ color, percent, label }) {
   return (
-    <Container bg={bg} color={color} size={size}>
+    <Container color={color} percent={percent}>
       {label}
-      <span>{size}%</span>
+      <span>{percent}%</span>
     </Container>
   );
 }
 
 Percent.propTypes = {
-  bg: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
-  size: PropTypes.number.isRequired,
+  percent: PropTypes.string.isRequired,
   label: PropTypes.string,
 };
 

@@ -1,8 +1,15 @@
 import styled from 'styled-components';
+import hexRgb from 'hex-rgb';
 
 export const Container = styled.div`
-  background-color: ${props => props.bg};
-  color: ${props => props.color};
+  background-color: ${props => props.color};
+  color: ${props => {
+    const { red, green, blue } = hexRgb(props.color);
+    if ((red * 299 + green * 587 + blue * 114) / 1000 > 186) {
+      return '#000000';
+    }
+    return '#FFFFFF';
+  }};
   font-size: 12px;
   font-weight: 900;
   height: calc(100%);
