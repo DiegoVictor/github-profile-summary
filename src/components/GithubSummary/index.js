@@ -37,15 +37,17 @@ function GithubProfile({ user, languages, stats }) {
                 <Stats key={stat.label}>
                   <div>
                     <span>
-                      {stat.label.split('\n').map(txt => (
+                      {stat.description.split('\n').map(txt => (
                         <Fragment key={txt}>
                           {txt}
                           <br />
                         </Fragment>
                       ))}
                     </span>
-                    {stat.value}
-                    <span>{stat.comment}</span>
+                    {stat.value < 10 ? `0${stat.value}` : stat.value}
+                    <span>
+                      in {stat.repos} {stat.repos > 1 ? 'repos' : 'repo'}
+                    </span>
                   </div>
                 </Stats>
               ))}
@@ -75,10 +77,9 @@ GithubProfile.propTypes = {
   languages: PropTypes.object.isRequired,
   stats: PropTypes.arrayOf(
     PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-        .isRequired,
-      comment: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      value: PropTypes.number.isRequired,
+      repos: PropTypes.number.isRequired,
     })
   ).isRequired,
 };

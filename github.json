@@ -1847,19 +1847,19 @@
   ],
   "stats": [
     {
-      "label": "Commit\nAverange",
-      "value": "120",
-      "comment": "in 18 repos"
+      "description": "Commit\nAverange",
+      "value": 120,
+      "repos": 18
     },
     {
-      "label": "Commits in\nlast 7 days",
-      "value": "14",
-      "comment": "in 3 repos"
+      "description": "Commits in\nlast 7 days",
+      "value": 14,
+      "repos": 3
     },
     {
-      "label": "Issues closed\nin last 30 days",
-      "value": "06",
-      "comment": "in 2 repos"
+      "description": "Issues closed\nin last 30 days",
+      "value": 6,
+      "repos": 2
     }
   ]
 }
