@@ -3,6 +3,8 @@ import hexRgb from 'hex-rgb';
 
 export const Container = styled.div`
   background-color: ${props => props.color};
+  box-sizing: border-box;
+  box-shadow: 0px 0px 5px ${props => props.color};
   color: ${props => {
     const { red, green, blue } = hexRgb(props.color);
     if ((red * 299 + green * 587 + blue * 114) / 1000 > 186) {
@@ -11,8 +13,9 @@ export const Container = styled.div`
     return '#FFFFFF';
   }};
   font-size: 12px;
+  font-style: normal;
   font-weight: 900;
-  height: calc(100%);
+  height: 100%;
   min-width: 5%;
   overflow: hidden;
   padding: 5px;
@@ -22,7 +25,6 @@ export const Container = styled.div`
   width: ${props => props.percent}%;
 
   &:hover {
-    box-shadow: 0px 0px 5px ${props => props.color};
     min-width: 70%;
 
     ~ div {
@@ -31,6 +33,7 @@ export const Container = styled.div`
   }
 
   span {
+    box-sizing: border-box;
     font-size: 15px;
     opacity: 0.3;
     position: absolute;
