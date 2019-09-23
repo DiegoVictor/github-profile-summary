@@ -30,6 +30,9 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
+    'react/forbid-prop-types': 'off',
+    'no-await-in-loop': 'off',
+    'no-restricted-syntax': 'off',
     'camelcase': 'off'
   },
 };
