@@ -1,25 +1,10 @@
-import styled, { createGlobalStyle } from 'styled-components';
-
-export const Style = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Roboto:400,900&display=swap');
-
-  * {
-    box-sizing: border-box;
-    margin: 0px;
-    outline: 0px;
-    padding: 0px;
-  }
-
-  body {
-    background-color: #F7F5F5;
-    color: #352e2f;
-    font-family: Roboto, sans-serif;
-  }
-`;
+import styled from 'styled-components';
 
 export const Container = styled.div`
   align-items: center;
+  box-sizing: border-box;
   display: flex;
+  font-family: Roboto, Arial, sans-serif;
   justify-content: center;
   height: 100vh;
   width: 100%;
@@ -27,12 +12,14 @@ export const Container = styled.div`
 
 export const User = styled.div`
   border-radius: 4px;
+  box-sizing: border-box;
   box-shadow: 0px 0px 5px #aaa;
   max-width: 590px;
   overflow: hidden;
   width: 100%;
 
   > div {
+    box-sizing: border-box;
     display: flex;
     padding: 10px;
   }
@@ -40,6 +27,7 @@ export const User = styled.div`
 
 export const Bio = styled.div`
   align-items: center;
+  box-sizing: border-box;
   display: flex;
   position: relative;
   width: 220px;
@@ -55,6 +43,7 @@ export const Bio = styled.div`
   }
 
   img {
+    box-sizing: border-box;
     border-radius: 4px;
     display: block;
     height: auto;
@@ -63,6 +52,7 @@ export const Bio = styled.div`
   }
 
   p {
+    box-sizing: border-box;
     font-size: 13px;
     padding: 6px;
     opacity: 0;
@@ -75,12 +65,14 @@ export const Bio = styled.div`
 `;
 
 export const Summary = styled.div`
+  box-sizing: border-box;
   margin-left: 10px;
   width: calc(100% - 230px);
 
   > a {
     background-color: #61ba59;
     border-radius: 4px;
+    box-sizing: border-box;
     color: white;
     display: block;
     font-weight: 900;
@@ -96,6 +88,7 @@ export const Summary = styled.div`
   }
 
   > div {
+    box-sizing: border-box;
     display: flex;
 
     &:first-child {
@@ -124,6 +117,7 @@ export const Summary = styled.div`
 
 export const Stats = styled.div`
   align-items: center;
+  box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
   font-size: 30px;
@@ -139,11 +133,12 @@ export const Stats = styled.div`
   }
 
   span {
-    opacity: 0.7;
+    box-sizing: border-box;
     display: block;
     font-size: 10px;
     font-weight: normal;
     line-height: 13px;
+    opacity: 0.7;
     text-transform: uppercase;
   }
 `;
