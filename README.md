@@ -24,4 +24,6 @@ $ yarn start
 To use real data just change the axios `baseURL` in the `src/index.js` to `https://api.github.com`, but remember that Github 
 limits no authenticated requests to 60 per hour, so make a cache is a good idea (this is the reason to the fake server exists).
 
-Remember to change the user name too, in the last line of `src/index.js` change from `DiegoVictor` to your user name _
+Remember to change the user name too, in the last line of `src/index.js` change from `DiegoVictor` to your user name.
+
+Unfortunately the stats below the languages usage summary is not fetching from Github API __yet__.😅
