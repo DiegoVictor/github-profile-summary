@@ -1845,21 +1845,226 @@
       "CSS": 213
     }
   ],
-  "stats": [
+  "commits": [
     {
-      "description": "Commit\nAverange",
-      "value": 120,
-      "repos": 18
+      "id": "2048",
+      "length": 2
     },
     {
-      "description": "Commits in\nlast 7 days",
-      "value": 14,
-      "repos": 3
+      "id": "ActivityTracker",
+      "length": 609
     },
     {
-      "description": "Issues closed\nin last 30 days",
-      "value": 6,
-      "repos": 2
+      "id": "diegovictor.github.io",
+      "length": 6
+    },
+    {
+      "id": "github-repository-tracker",
+      "length": 4
+    },
+    {
+      "id": "GithubUsersStarsViewer",
+      "length": 10
+    },
+    {
+      "id": "gobarber-api",
+      "length": 8
+    },
+    {
+      "id": "gobarber-app",
+      "length": 19
+    },
+    {
+      "id": "gobarber-web",
+      "length": 26
+    },
+    {
+      "id": "LancamentoObliquo",
+      "length": 106
+    },
+    {
+      "id": "meetapp-api",
+      "length": 17
+    },
+    {
+      "id": "meetapp-app",
+      "length": 29
+    },
+    {
+      "id": "meetapp-web",
+      "length": 37
+    },
+    {
+      "id": "omnistack-8",
+      "length": 44
+    },
+    {
+      "id": "rocketshoes-app",
+      "length": 16
+    },
+    {
+      "id": "rocketshoes-web",
+      "length": 2
+    },
+    {
+      "id": "spaceship-canvas",
+      "length": 97
+    },
+    {
+      "id": "TCC",
+      "length": 30
+    },
+    {
+      "id": "thread-view",
+      "length": 1
+    }
+  ],
+  "participation": [
+    {
+      "id": "2048",
+      "owner": [0]
+    },
+    {
+      "id": "ActivityTracker",
+      "owner": [0]
+    },
+    {
+      "id": "diegovictor.github.io",
+      "owner": [0]
+    },
+    {
+      "id": "github-repository-tracker",
+      "owner": [0]
+    },
+    {
+      "id": "GithubUsersStarsViewer",
+      "owner": [0]
+    },
+    {
+      "id": "gobarber-api",
+      "owner": [0]
+    },
+    {
+      "id": "gobarber-app",
+      "owner": [12]
+    },
+    {
+      "id": "gobarber-web",
+      "owner": [13]
+    },
+    {
+      "id": "LancamentoObliquo",
+      "owner": [0]
+    },
+    {
+      "id": "meetapp-api",
+      "owner": [1]
+    },
+    {
+      "id": "meetapp-app",
+      "owner": [9]
+    },
+    {
+      "id": "meetapp-web",
+      "owner": [3]
+    },
+    {
+      "id": "omnistack-8",
+      "owner": [0]
+    },
+    {
+      "id": "rocketshoes-app",
+      "owner": [1]
+    },
+    {
+      "id": "rocketshoes-web",
+      "owner": [1]
+    },
+    {
+      "id": "spaceship-canvas",
+      "owner": [0]
+    },
+    {
+      "id": "TCC",
+      "owner": [0]
+    },
+    {
+      "id": "thread-view",
+      "owner": [0]
+    }
+  ],
+  "issues": [
+    {
+      "id": "2048",
+      "length": 0
+    },
+    {
+      "id": "ActivityTracker",
+      "length": 0
+    },
+    {
+      "id": "diegovictor.github.io",
+      "length": 0
+    },
+    {
+      "id": "github-repository-tracker",
+      "length": 0
+    },
+    {
+      "id": "GithubUsersStarsViewer",
+      "length": 0
+    },
+    {
+      "id": "gobarber-api",
+      "length": 0
+    },
+    {
+      "id": "gobarber-app",
+      "length": 0
+    },
+    {
+      "id": "gobarber-web",
+      "length": 0
+    },
+    {
+      "id": "LancamentoObliquo",
+      "length": 0
+    },
+    {
+      "id": "meetapp-api",
+      "length": 0
+    },
+    {
+      "id": "meetapp-app",
+      "length": 0
+    },
+    {
+      "id": "meetapp-web",
+      "length": 0
+    },
+    {
+      "id": "omnistack-8",
+      "length": 0
+    },
+    {
+      "id": "rocketshoes-app",
+      "length": 0
+    },
+    {
+      "id": "rocketshoes-web",
+      "length": 0
+    },
+    {
+      "id": "spaceship-canvas",
+      "length": 0
+    },
+    {
+      "id": "TCC",
+      "length": 0
+    },
+    {
+      "id": "thread-view",
+      "length": 0
     }
   ]
 }
