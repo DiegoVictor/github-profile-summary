@@ -4,7 +4,7 @@ import colors from 'github-colors';
 import Language from '../Language';
 import { Container, User, Bio, Stats, Summary } from './styles';
 
-function GithubProfile({ user, languages, stats }) {
+function GithubProfile({ user, usage, stats }) {
   return (
     <Container>
       <User>
@@ -15,7 +15,7 @@ function GithubProfile({ user, languages, stats }) {
           </Bio>
           <Summary>
             <div>
-              {Object.keys(languages).map(key => {
+              {Object.keys(usage).map(key => {
                 const { color, aliases, ace_mode: name } = colors.get(key);
 
                 return (
@@ -23,18 +23,18 @@ function GithubProfile({ user, languages, stats }) {
                     color={color}
                     label={
                       name.length > 6
-                        ? aliases.sort((a, b) => a - b).shift()
+                        ? aliases.sort((a, b) => a.length - b.length).shift()
                         : name
                     }
                     key={key}
-                    percent={languages[key]}
+                    percent={usage[key]}
                   />
                 );
               })}
             </div>
             <div>
               {stats.map(stat => (
-                <Stats key={stat.label}>
+                <Stats key={stat.key}>
                   <div>
                     <span>
                       {stat.description.split('\n').map(txt => (
@@ -74,7 +74,7 @@ GithubProfile.propTypes = {
     avatar_url: PropTypes.string.isRequired,
     bio: PropTypes.string.isRequired,
   }).isRequired,
-  languages: PropTypes.object.isRequired,
+  usage: PropTypes.object.isRequired,
   stats: PropTypes.arrayOf(
     PropTypes.shape({
       description: PropTypes.string.isRequired,
