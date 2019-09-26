@@ -19,6 +19,8 @@ const api = axios.create({
   const { data: user } = await api.get(`/users/${username}`);
   const { data: repos } = await api.get(`/users/${username}/repos`);
 
+  const usage = {};
+  let commits_count = 0;
   const week = { commits: 0, repos: 0 };
   const closed = {
     issues: 0,
@@ -40,11 +42,11 @@ const api = axios.create({
       if (typeof langs[lang] === 'number') {
         let value = langs[lang];
 
-        if (typeof languages[lang] === 'number') {
-          value += languages[lang];
+        if (typeof usage[lang] === 'number') {
+          value += usage[lang];
         }
 
-        languages[lang] = value;
+        usage[lang] = value;
       }
     });
 
@@ -83,7 +85,7 @@ const api = axios.create({
     if (commits_total > 0) {
       week.commits += commits_total;
       week.repos += 1;
-  }
+    }
 
     /**
      * Retrieve issues closed in the last 30 days
@@ -136,9 +138,11 @@ const api = axios.create({
     },
   ];
 
-  Object.keys(languages).forEach(key => {
-    const percent = (languages[key] / total) * 100;
-    languages[key] = percent.toPrecision(2);
+  const total = Object.values(usage).reduce((sum, value) => sum + value, 0);
+
+  Object.keys(usage).forEach(key => {
+    const percent = (usage[key] / total) * 100;
+    usage[key] = percent.toPrecision(2);
   });
 
   ReactDOM.render(
