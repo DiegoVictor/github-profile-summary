@@ -1,7 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import { createGlobalStyle } from 'styled-components';
 import GithubSummary from './components/GithubSummary';
+
+const Style = createGlobalStyle`
+  html, body, #root {
+    height: 100%;
+    margin: 0px;
+  }
+`;
 
 const api = axios.create({
   baseURL: 'http://localhost:3333',
@@ -133,10 +141,11 @@ const api = axios.create({
     languages[key] = percent.toPrecision(2);
   });
 
-  const { data: stats } = await api.get('stats');
-
   ReactDOM.render(
-    <GithubSummary user={user} languages={languages} stats={stats} />,
+    <>
+      <Style />
+      <GithubSummary user={user} usage={usage} stats={stats} />
+    </>,
     document.getElementById('root')
   );
 })('DiegoVictor');
