@@ -6,7 +6,7 @@ export const Container = styled.div`
   display: flex;
   font-family: Roboto, Arial, sans-serif;
   justify-content: center;
-  height: 100vh;
+  height: 100%;
   width: 100%;
 `;
 
