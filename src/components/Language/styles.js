@@ -32,6 +32,16 @@ export const Container = styled.div`
     }
   }
 
+  @media (max-width: 600px) {
+    &.expand {
+      min-width: 70%;
+
+      ~ div {
+        min-width: 5%;
+      }
+    }
+  }
+
   span {
     box-sizing: border-box;
     font-size: 15px;

@@ -7,6 +7,7 @@ export const Container = styled.div`
   font-family: Roboto, Arial, sans-serif;
   justify-content: center;
   height: 100%;
+  padding: 0px 10px;
   width: 100%;
 `;
 
@@ -18,10 +19,18 @@ export const User = styled.div`
   overflow: hidden;
   width: 100%;
 
+  @media (max-width: 600px) {
+    width: auto;
+  }
+
   > div {
     box-sizing: border-box;
     display: flex;
     padding: 10px;
+
+    @media (max-width: 600px) {
+      flex-direction: column;
+    }
   }
 `;
 
@@ -31,6 +40,12 @@ export const Bio = styled.div`
   display: flex;
   position: relative;
   width: 220px;
+
+  @media (max-width: 600px) {
+    margin-bottom: 10px;
+    max-width: 300px;
+    width: 100%;
+  }
 
   &:hover {
     img {
@@ -47,8 +62,12 @@ export const Bio = styled.div`
     border-radius: 4px;
     display: block;
     height: auto;
-    transition: all 0.5s;
+    transition: all 0.25s;
     width: 100%;
+
+    @media (max-width: 600px) {
+      opacity: ${props => (props.opacity > 0 ? 1 : 0.25)};
+    }
   }
 
   p {
@@ -61,6 +80,10 @@ export const Bio = styled.div`
     transition: all 0.5s;
     z-index: 2;
     width: 100%;
+
+    @media (max-width: 600px) {
+      opacity: ${props => (props.opacity > 0 ? 0 : 1)};
+    }
   }
 `;
 
@@ -68,6 +91,11 @@ export const Summary = styled.div`
   box-sizing: border-box;
   margin-left: 10px;
   width: calc(100% - 230px);
+
+  @media (max-width: 600px) {
+    margin: auto;
+    width: 100%;
+  }
 
   > a {
     background-color: #61ba59;

@@ -1,15 +1,21 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import colors from 'github-colors';
 import Language from '../Language';
 import { Container, User, Bio, Stats, Summary } from './styles';
 
 function GithubProfile({ user, usage, stats }) {
+  const [selected, setSelected] = useState('');
+  const [opacity, setOpacity] = useState(1);
+
   return (
     <Container>
       <User>
         <div>
-          <Bio>
+          <Bio
+            onClick={() => setOpacity(opacity > 0 ? 0 : 1)}
+            opacity={opacity}
+          >
             <img src={user.avatar_url} alt={user.name} />
             <p>{user.bio}</p>
           </Bio>
@@ -23,11 +29,13 @@ function GithubProfile({ user, usage, stats }) {
                     color={color}
                     label={
                       name.length > 6
-                        ? aliases.sort((a, b) => a.length - b.length).shift()
+                        ? aliases.sort((a, b) => a.length - b.length)[0]
                         : name
                     }
                     key={key}
                     percent={usage[key]}
+                    selected={selected === key}
+                    onClick={() => setSelected(key === selected ? '' : key)}
                   />
                 );
               })}
@@ -53,7 +61,7 @@ function GithubProfile({ user, usage, stats }) {
               ))}
             </div>
             <a
-              href={`https://github.com/${user.name}`}
+              href={`https://github.com/${user.login}`}
               rel="noopener noreferrer"
               target="_blank"
             >
