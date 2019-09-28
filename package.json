@@ -1,7 +1,7 @@
 {
-  "name": "git-languages-usage",
+  "name": "git-profile-summary",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "axios": "^0.19.0",
     "github-colors": "^2.2.18",
