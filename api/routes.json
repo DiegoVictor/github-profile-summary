@@ -1,8 +1,0 @@
-{
-  "/users/:login": "/users/15165349",
-  "/users/:login/repos": "/repos",
-  "/repos/:login/:id/languages": "/languages/:id",
-  "/repos/:login/:id/commits": "/commits/:id",
-  "/repos/:login/:id/stats/participation": "/participation/:id",
-  "/:login/:id/issues\\?state=closed&since=:date": "/issues/:id"
-}
