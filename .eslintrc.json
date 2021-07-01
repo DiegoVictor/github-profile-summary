@@ -1,40 +1,34 @@
 {
   "env": {
     "browser": true,
-    "es6": true
+    "es2021": true
   },
   "extends": [
-    "airbnb", "prettier", "prettier/react"
+    "plugin:react/recommended",
+    "airbnb",
+    "plugin:prettier/recommended",
+    "prettier"
   ],
-  "globals": {
-    "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
-  },
-  "parser": "babel-eslint",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
     },
-    "ecmaVersion": 2018,
+    "ecmaVersion": 12,
     "sourceType": "module"
   },
   "plugins": [
-    "react", "prettier", "react-hooks"
+    "react",
+    "react-hooks",
+    "prettier"
   ],
   "rules": {
     "prettier/prettier": "error",
-    "react/jsx-filename-extension": [
-      "warn",
-      { "extensions": [".jsx", ".js"] }
-    ],
     "import/prefer-default-export": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "react/forbid-prop-types": "off",
-    "no-await-in-loop": "off",
-    "no-restricted-syntax": "off",
-    "camelcase": "off",
-    "react/jsx-props-no-spreading": "off",
-    "no-param-reassign": "off"
+    "react/jsx-filename-extension": [
+      "warn",
+      { "extensions": [".jsx", ".js"] }
+    ]
   }
 }
