@@ -26,6 +26,13 @@
     "import/prefer-default-export": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
+    "camelcase": "off",
+    "no-param-reassign": "off",
+    "import/no-unresolved": ["error", { "ignore": ["^react$"] }],
+    "import/no-extraneous-dependencies": [
+      "error",
+      { "devDependencies": ["scripts/*.js"], "peerDependencies": true }
+    ],
     "react/jsx-filename-extension": [
       "warn",
       { "extensions": [".jsx", ".js"] }
