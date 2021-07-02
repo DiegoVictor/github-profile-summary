@@ -1,6 +1,16 @@
 {
   "name": "github-profile-summary",
-  "version": "0.1.0",
+  "description": "Use this component to show a summary of your github stats with a cool design",
+  "author": "DiegoVictor",
+  "keywords": [
+    "react",
+    "component",
+    "github",
+    "profile",
+    "languages",
+    "usage",
+    "summary"
+  ],
   "private": false,
   "dependencies": {
     "axios": "^0.19.0",
