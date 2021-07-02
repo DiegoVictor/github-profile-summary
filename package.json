@@ -18,18 +18,16 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.12.1",
-    "hex-rgb": "^5.0.0",
-    "prop-types": "^15.7.2",
-    "styled-components": "^5.3.0"
+    "prop-types": "^15.7.2"
   },
   "peerDependencies": {
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.5",
     "@babel/core": "^7.14.6",
+    "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.14.7",
     "@babel/preset-react": "^7.14.5",
     "axios": "^0.21.1",
@@ -43,8 +41,8 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "github-colors": "^2.2.19",
+    "hex-rgb": "^5.0.0",
     "prettier": "^2.3.2",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "styled-components": "^5.3.0"
   }
 }
