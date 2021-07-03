@@ -15,6 +15,13 @@
   "private": false,
   "main": "dist/index.js",
   "module": "dist/index.js",
+  "files": [
+    "dist",
+    "scripts",
+    "README.md",
+    "LICENSE",
+    "package.json"
+  ],
   "scripts": {
     "build": "rm -rf dist && cross-env NODE_ENV=production babel src --out-dir dist --copy-files"
   },
