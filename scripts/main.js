@@ -63,8 +63,8 @@ function calcLastWeekCommits(repos) {
 }
 
 function calcCommitsAverange(repos) {
-  const commitsTotal = repos.reduce((sum, { issues }) => {
-    return sum + issues;
+  const commitsTotal = repos.reduce((sum, { commits }) => {
+    return sum + commits;
   }, 0);
 
   const average = Math.floor(commitsTotal / repos.length);
@@ -282,6 +282,7 @@ async function getProfileDate(login) {
       throw err;
     });
 
+  console.log(JSON.stringify(repos));
   result.languages = calcLanguagesUsage(repos);
   [
     calcCommitsAverange,
