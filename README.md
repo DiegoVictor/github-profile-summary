@@ -1,34 +1,93 @@
-# Github profile summary
-Use this component to show a summary of your github with cool design😎
-![DiegoVictor](https://i.ibb.co/fx39pYz/github-profile-summary.png)
+# Github Profile Summary
+[![babel](https://img.shields.io/badge/babel-7.14.6-F9DC3E?style=flat-square&logo=babel)](https://babeljs.io/)
+[![eslint](https://img.shields.io/badge/eslint-7.29.0-4b32c3?style=flat-square&logo=eslint)](https://eslint.org/)
+[![prettier](https://img.shields.io/badge/prettier-2.3.2-F7B93E?style=flat-square&logo=prettier)](https://prettier.io/)
+[![airbnb-style](https://flat.badgen.net/badge/style-guide/airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
+[![MIT License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](https://github.com/DiegoVictor/github-profile-summary/blob/master/LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)<br>
 
-The project is still in development, so if you find something wrong email me
-[diegovictorgonzaga@gmail.com](diegovictorgonzaga@gmail.com).
+![DiegoVictor](https://raw.githubusercontent.com/DiegoVictor/github-profile-summary/master/screenshots/demo.gif)
 
-__Should I make it a npm package? (To facilitate to embed it into pages) 🤔🤔__
+Use this component to show a summary of your github stats with cool design 😎
 
-## Running
-Clone the repo, then, run the fake server:
+# Installing
+Just run:
 ```
-$ yarn json-server api/data.json --port=3333 --routes api/routes.json
+npm install @diegovictor/github-profile-summary
 ```
-> If you want change the server port just remember to update in the `src/index.js` too.
-
-Then start the ReactJS server:
-
+Or simply:
 ```
-$ yarn start
+yarn add @diegovictor/github-profile-summary
 ```
 
-## Use Github API
-To use real data just change the axios `baseURL` in the `src/index.js` to `https://api.github.com`, but remember that Github
-limits no authenticated requests to 60 per hour, so make a cache is a good idea (this is the reason to the fake server exists).
+# Usage
+So easy than make a limone:
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { ProfileSummary } from 'github-profile-summary';
 
-Remember to change the user name too, in the last line of `src/index.js` change from `DiegoVictor` to your user name.
+ReactDOM.render(
+  <ProfileSummary data={data} />,
+  document.getElementById('root')
+);
+```
 
-Unfortunately the stats below the languages usage summary is not fetching from Github API __yet__.😅
+## Structure
+The `data` attribute must receive an object with the following structure:
+```js
+{
+  user: {
+    name: 'Diego Victor',
+    avatar_url: 'https://avatars3.githubusercontent.com/u/15165349?v=4',
+    login: 'DiegoVictor',
+    url: 'https://github.com/DiegoVictor',
+  },
+  languages: [
+    {
+      name: 'JS',
+      usage: '67%',
+      percent: 67,
+      color: '#f1e05a',
+    },
+    ...
+  ],
+  stats: [
+    {
+      title: 'Commit\nAverange',
+      value: 59,
+      description: 'in 18 repos',
+    },
+    ...
+  ],
+}
+```
+> The `stats` array must have only 3 items, any item after the third position will be ignored
 
+Field|Format|Description
+---|---|---
+`user`|object| -
+`user.name`|string|Utilized as fallback to image in case of it not loads.
+`user.avatar_url`|string|Avatar's URL.
+`user.login`|string|Green button label.
+`user.url`|string|Link to open when the green button is clicked.
+`languages`|array| -
+`languages[].name`|string|Language name or alias.
+`languages[].usage`|string|Language label.
+`languages[].percent`|number|Language percent usage. Defines language area occupied.
+`languages[].color`|string|Language color (hexadecimal color code).
+`stats`|array| -
+`stats[].title`|string|Text at the top of stats.
+`stats[].value`|number|The stat number.
+`stats[].description`|string|Text at the bottom of the stat.
 
-## License
-
-Distributed under the MIT License. See `LICENSE` for more information.
+## Data
+With in this package there is a script to calcule stats and language usage from a provided github's user, just run `scripts/main.js` passing the user github's username as parameter:
+```shell
+$ node scripts/main.js diegovictor
+```
+> Github has a low limit of requests non authenticated, if the provided user have a lot of repositories probably the limit will be reached easyly, to avoid this problem [create a personal access token](https://docs.github.com/pt/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token) to have a greater limit, then pass it as a second parameter to the script:
+```shell
+$ node scripts/main.js diegovictor ghp_p07LDQ1xUyRJ4dExb6U1YfVlEW1vgX2SKiFQ
+```
+A `stats.json` file will be create aside the script, just copy its content and pass it to component into `data` attribute.
