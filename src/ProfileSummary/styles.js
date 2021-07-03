@@ -12,7 +12,7 @@ export const Container = styled.div`
   width: 100%;
 `;
 
-export const User = styled.div`
+export const Box = styled.div`
   border-radius: 4px;
   box-sizing: border-box;
   box-shadow: 0px 0px 5px #aaa;
@@ -38,12 +38,13 @@ export const User = styled.div`
     @media (max-width: 600px) {
       margin-bottom: 10px;
       max-width: 300px;
+      min-width: 251px;
       width: 100%;
     }
   }
 `;
 
-export const Summary = styled.div`
+export const Resume = styled.div`
   box-sizing: border-box;
   margin-left: 10px;
   width: calc(100% - 230px);
@@ -55,21 +56,21 @@ export const Summary = styled.div`
 `;
 
 export const Usage = styled.div`
-    box-sizing: border-box;
-    height: 60px;
-    display: flex;
-    margin-bottom: 10px;
-    overflow: hidden;
+  box-sizing: border-box;
+  height: 60px;
+  display: flex;
+  margin-bottom: 10px;
+  overflow: hidden;
 
-    > div:first-child {
-      border-top-left-radius: 4px;
-      border-bottom-left-radius: 4px;
-    }
+  > div:first-child {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
 
-    > div:last-child {
-      border-top-right-radius: 4px;
-      border-bottom-right-radius: 4px;
-    }
+  > div:last-child {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
 `;
 
 export const Language = styled.div`
@@ -105,7 +106,7 @@ export const Language = styled.div`
 
   @media (max-width: 600px) {
     & {
-      min-width: ${props => props.selected ? '70%' : '5%'};
+      min-width: ${props => (props.selected ? '70%' : '5%')};
     }
   }
 
@@ -126,31 +127,32 @@ export const Stats = styled.div`
   border-top: 1px solid #ddd;
   display: flex;
   height: 111px;
+`;
 
-  > div {
-    cursor: pointer;
-    font-size: 30px;
-    font-weight: 900;
-    justify-content: center;
-    line-height: 35px;
-    text-align: center;
-    transition: all 0.5s;
-    width: calc(100% / 3);
+export const Stat = styled.div`
+  box-sizing: border-box;
+  cursor: unset;
+  display: block;
+  font-size: 10px;
+  font-weight: normal;
+  line-height: 13px;
+  justify-content: center;
+  opacity: 0.7;
+  text-align: center;
+  text-transform: uppercase;
+  transition: all 0.5s;
+  width: calc(100% / 3);
 
-    &:hover {
+  &:hover {
     transform: scale(1.05);
   }
 
-    span {
-      box-sizing: border-box;
-      display: block;
-      font-size: 10px;
-      font-weight: normal;
-      line-height: 13px;
-      opacity: 0.7;
-      text-transform: uppercase;
-      width: 100%;
-    }
+  span {
+    display: block;
+    font-size: 30px;
+    font-weight: 900;
+    line-height: 35px;
+    width: 100%;
   }
 `;
 
@@ -170,6 +172,6 @@ export const Link = styled.a`
 
   &:hover {
     box-shadow: 0px 0px 5px #61ba59;
-    letter-spacing: 0.25px
+    letter-spacing: 0.25px;
   }
 `;
