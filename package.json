@@ -13,15 +13,8 @@
   ],
   "version": "1.0.0",
   "private": false,
-  "dependencies": {
-    "axios": "^0.19.0",
-    "github-colors": "^2.2.18",
-    "hex-rgb": "^4.1.0",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-scripts": "3.1.2",
-    "styled-components": "^4.4.1"
-  },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
   "scripts": {
     "build": "rm -rf dist && cross-env NODE_ENV=production babel src --out-dir dist --copy-files"
   },
