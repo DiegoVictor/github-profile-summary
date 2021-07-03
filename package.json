@@ -19,7 +19,9 @@
     "build": "rm -rf dist && cross-env NODE_ENV=production babel src --out-dir dist --copy-files"
   },
   "dependencies": {
-    "prop-types": "^15.7.2"
+    "hex-rgb": "^5.0.0",
+    "prop-types": "^15.7.2",
+    "styled-components": "^5.3.0"
   },
   "peerDependencies": {
     "react": "^17.0.2",
@@ -42,8 +44,8 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "github-colors": "^2.2.19",
-    "hex-rgb": "^5.0.0",
+
     "prettier": "^2.3.2",
-    "styled-components": "^5.3.0"
+
   }
 }
