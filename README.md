@@ -54,7 +54,7 @@ The `data` attribute must receive an object with the following structure:
   ],
   stats: [
     {
-      title: 'Commit\nAverange',
+      title: 'Commit\nAverage',
       value: 59,
       description: 'in 18 repos',
     },

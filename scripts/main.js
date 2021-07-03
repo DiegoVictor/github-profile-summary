@@ -62,7 +62,7 @@ function calcLastWeekCommits(repos) {
   };
 }
 
-function calcCommitsAverange(repos) {
+function calcCommitsAverage(repos) {
   const commitsTotal = repos.reduce((sum, { commits }) => {
     return sum + commits;
   }, 0);
@@ -71,7 +71,7 @@ function calcCommitsAverange(repos) {
 
   return {
     key: 'commitsAverage',
-    title: 'Commits\nAverange',
+    title: 'Commits\nAverage',
     value: average || 0,
     description: `in ${repos.length} repo(s)`,
   };
@@ -282,10 +282,9 @@ async function getProfileDate(login) {
       throw err;
     });
 
-  console.log(JSON.stringify(repos));
   result.languages = calcLanguagesUsage(repos);
   [
-    calcCommitsAverange,
+    calcCommitsAverage,
     calcLastWeekCommits,
     calcIssuesClosedInLast30Days,
   ].forEach(func => {
