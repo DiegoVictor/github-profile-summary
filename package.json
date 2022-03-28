@@ -15,6 +15,10 @@
   "private": false,
   "main": "dist/index.js",
   "module": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DiegoVictor/github-profile-summary"
+  },
   "files": [
     "dist",
     "scripts",
