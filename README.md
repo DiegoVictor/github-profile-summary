@@ -8,7 +8,7 @@
 
 ![DiegoVictor](https://raw.githubusercontent.com/DiegoVictor/github-profile-summary/master/screenshots/demo.gif)
 
-Use this component to show a summary of your github stats with cool design 😎
+Use this component to show a summary of your github stats with a cool design 😎
 
 # Installing
 Just run:
@@ -25,7 +25,7 @@ So easy than make a limone:
 ```js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ProfileSummary } from 'github-profile-summary';
+import { ProfileSummary } from '@diegovictor/github-profile-summary';
 
 ReactDOM.render(
   <ProfileSummary data={data} />,
