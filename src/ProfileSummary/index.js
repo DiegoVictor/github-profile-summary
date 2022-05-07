@@ -15,6 +15,27 @@ import {
 function ProfileSummary({ data }) {
   const [selectedLanguage, setSelectedLanguage] = useState('');
 
+  const language = ({
+    name,
+    percent,
+    color,
+    usage,
+    selected = name === selectedLanguage,
+  }) => (
+    <Language
+      key={name}
+      usage={percent}
+      color={color}
+      selected={selected}
+      data-testid={`language-${name}`}
+      data-selected={selected}
+      onClick={() => setSelectedLanguage(selected ? '' : name)}
+    >
+      {name}
+      <span>{usage}</span>
+    </Language>
+  );
+
   if (
     data &&
     Object.keys(data).length > 0 &&
@@ -27,24 +48,7 @@ function ProfileSummary({ data }) {
         <Box>
           <img src={data.user.avatar_url} alt={data.user.name} />
           <Resume>
-            <Usage>
-              {data.languages.map(language => (
-                <Language
-                  key={language.name}
-                  usage={language.percent}
-                  color={language.color}
-                  selected={language.name === selectedLanguage}
-                  onClick={() =>
-                    setSelectedLanguage(
-                      language.name === selectedLanguage ? '' : language.name
-                    )
-                  }
-                >
-                  {language.name}
-                  <span>{language.usage}</span>
-                </Language>
-              ))}
-            </Usage>
+            <Usage>{data.languages.map(language)}</Usage>
 
             <Stats>
               {data.stats.map(stat => (
