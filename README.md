@@ -1,6 +1,8 @@
 # Github Profile Summary
 [![Travis](https://img.shields.io/travis/com/diegovictor/github-profile-summary?logo=travis&style=flat-square)](https://app.travis-ci.com/DiegoVictor/github-profile-summary)
 [![npm](https://img.shields.io/npm/v/@diegovictor/github-profile-summary?style=flat-square)](https://www.npmjs.com/package/@diegovictor/github-profile-summary)
+[![react](https://img.shields.io/badge/reactjs-18.1.0-61dafb?style=flat-square&logo=react)](https://reactjs.org/)
+[![styled-components](https://img.shields.io/badge/styled_components-5.3.5-db7b86?style=flat-square&logo=styled-components)](https://styled-components.com/)
 [![babel](https://img.shields.io/badge/babel-7.17.10-F9DC3E?style=flat-square&logo=babel)](https://babeljs.io/)
 [![eslint](https://img.shields.io/badge/eslint-8.14.0-4b32c3?style=flat-square&logo=eslint)](https://eslint.org/)
 [![prettier](https://img.shields.io/badge/prettier-2.6.2-F7B93E?style=flat-square&logo=prettier)](https://prettier.io/)
