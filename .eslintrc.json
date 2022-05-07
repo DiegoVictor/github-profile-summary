@@ -29,14 +29,34 @@
     "react-hooks/exhaustive-deps": "warn",
     "camelcase": "off",
     "no-param-reassign": "off",
-    "import/no-unresolved": ["error", { "ignore": ["^react$"] }],
+    "import/no-unresolved": [
+      "error",
+      {
+        "ignore": [
+          "^react$"
+        ]
+      }
+    ],
     "import/no-extraneous-dependencies": [
       "error",
-      { "devDependencies": ["scripts/*.js"], "peerDependencies": true }
+      {
+        "devDependencies": [
+          "scripts/*.js",
+          "**/*.test.js",
+          "**/*.spec.js",
+          "tests/jest-setup.js"
+        ],
+        "peerDependencies": true
+      }
     ],
     "react/jsx-filename-extension": [
       "warn",
-      { "extensions": [".jsx", ".js"] }
+      {
+        "extensions": [
+          ".jsx",
+          ".js"
+        ]
+      }
     ]
   }
 }
