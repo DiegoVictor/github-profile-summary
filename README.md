@@ -58,6 +58,7 @@ The `data` attribute must receive an object with the following structure:
   ],
   stats: [
     {
+      key: 1,
       title: 'Commit\nAverage',
       value: 59,
       description: 'in 18 repos',
@@ -81,6 +82,7 @@ Field|Format|Description
 `languages[].percent`|number|Language percent usage. Defines language area occupied.
 `languages[].color`|string|Language color (hexadecimal color code).
 `stats`|array| -
+`stats[].key`|string,number|Unique identifier.
 `stats[].title`|string|Text at the top of stats.
 `stats[].value`|number|The stat number.
 `stats[].description`|string|Text at the bottom of the stat.
