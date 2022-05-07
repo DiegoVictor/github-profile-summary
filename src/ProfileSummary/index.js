@@ -23,7 +23,7 @@ function ProfileSummary({ data }) {
     data.languages
   ) {
     return (
-      <Container>
+      <Container data-testid="profile-summary">
         <Box>
           <img src={data.user.avatar_url} alt={data.user.name} />
           <Resume>
@@ -48,7 +48,7 @@ function ProfileSummary({ data }) {
 
             <Stats>
               {data.stats.map(stat => (
-                <Stat key={stat.key}>
+                <Stat key={stat.key} data-testid={`stat-${stat.key}`}>
                   {stat.title
                     .replace(/<br ?\/>/gi, ' \n ')
                     .split('\n')
@@ -69,6 +69,7 @@ function ProfileSummary({ data }) {
               href={data.user.url}
               rel="noopener noreferrer"
               target="_blank"
+              data-testid="login"
             >
               {data.user.login}
             </Link>
