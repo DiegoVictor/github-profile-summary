@@ -122,10 +122,8 @@ const count =
   };
 
 /**
- * @typedef {Record<string, number>} Language
- *
  * @typedef {{
- *  languages: Language,
+ *  languages: Record<string, number>,
  *  participation: { [key: string]: Record<string, number> },
  *  commits: number,
  *  issues: number
@@ -191,14 +189,15 @@ const getNameAndColor = language => {
 };
 
 /**
- *
- * @param {Repo[]} repos
- * @returns {{
+ * @typedef {{
  *  name: string,
  *  color: string,
  *  usage: string,
  *  percent: number
- * }[]}
+ * }} Language
+ *
+ * @param {Repo[]} repos
+ * @returns {Language[]}
  */
 const calcUsage = repos => {
   let highUsage = '';
@@ -360,6 +359,15 @@ const calcStats = repos =>
     []
   );
 
+/**
+ *
+ * @param {{
+ *  user: User,
+ *  languages: Language[],
+ *  stats: Stat[]
+ * }} result
+ * @returns {Promise<void>}
+ */
 const save = async result =>
   fs.promises.writeFile(
     `${process.cwd()}/scripts/stats.json`,
