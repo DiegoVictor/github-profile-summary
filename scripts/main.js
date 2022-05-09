@@ -1,311 +1,381 @@
 const axios = require('axios');
-const { createInterface } = require('readline');
 const colors = require('github-colors');
 const fs = require('fs');
 
-const [, , userName, accessToken] = process.argv;
+const [, , userName, accessToken = null] = process.argv;
 const api = axios.create({
   baseURL: 'https://api.github.com',
 });
+
+const PER_PAGE = 100;
 
 if (accessToken) {
   api.defaults.headers.authorization = `Bearer ${accessToken}`;
 }
 
-function calcIssuesClosedInLast30Days(repos) {
-  const recentIssues = repos.reduce(
-    (sum, { total }) => {
-      if (total > 0) {
-        return {
-          total: sum.total + total,
-          repositories: sum.repositories + 1,
-        };
+/**
+ * @typedef {{
+ *  name: string,
+ *  avatar_url: string,
+ *  login: string,
+ *  url: string
+ * }} User
+ *
+ * @param {string} login
+ * @returns {User}
+ */
+const getUser = login =>
+  api
+    .get(`/users/${login}`)
+    .then(({ data: { name, avatar_url, html_url } }) => ({
+      name,
+      avatar_url,
+      login,
+      url: html_url,
+    }));
+
+/**
+ *
+ * @param {string} login
+ * @param {number} page
+ * @returns {string[]}
+ */
+const getReposList = (login, page = 1) =>
+  api
+    .get(`/users/${login}/repos`, {
+      params: {
+        page,
+        per_page: PER_PAGE,
+      },
+    })
+    .then(({ data, headers }) => {
+      const repos = data.map(({ name }) => name);
+      if (data.length === PER_PAGE && headers.link) {
+        return getReposList(login, page + 1).then(result =>
+          repos.concat(result)
+        );
       }
-      return sum;
+      return repos;
+    })
+    .then(data => data);
+
+/**
+ *
+ * @param {string} path
+ * @param {string} repoName
+ * @returns {(key: string) => Promise<any>}
+ */
+const getOneStat = (login, repoName) => async key =>
+  api.get(`/repos/${login}/${repoName}/${key}`).then(({ data }) => data);
+
+/**
+ *
+ * @param {{
+ *  login: string,
+ *  repoName: string,
+ *  key: string,
+ *  page: number
+ * }}
+ * @returns {Promise<{
+ *  data: any[],
+ *  headers: Record<string, string>
+ * }>}
+ */
+const getCommitsPage = async ({ login, repoName, key, page = 1 }) =>
+  api.get(`/repos/${login}/${repoName}/${key}`, {
+    params: {
+      per_page: PER_PAGE,
+      page,
     },
-    {
-      total: 0,
-      repositories: 0,
-    }
-  );
-  return {
-    key: 'recentIssues',
-    title: 'Issues closed\nin last 30 days',
-    value: recentIssues.total,
-    description: `in ${recentIssues.repositories} repo(s)`,
-  };
-}
+  });
 
-function calcLastWeekCommits(repos) {
-  const recentCommits = repos.reduce(
-    (sum, { participation: { owner } }) => {
-      const commitsCount = owner.pop();
-      if (commitsCount > 0) {
-        return {
-          total: sum.total + commitsCount,
-          repositories: sum.repositories + 1,
-        };
-      }
-      return sum;
+/**
+ *
+ * @param {string} login
+ * @param {string} repoName
+ * @returns {(
+ *    key: string,
+ *    options: Record<string, string>
+ *  ) => Promise<number>
+ * }
+ */
+const count =
+  (login, repoName) =>
+  async (key, options = {}) => {
+    const params = { login, repoName, key, ...options };
+    const { data, headers } = await getCommitsPage(params);
+
+    if (data.length === PER_PAGE && headers.link) {
+      const lastPage = headers.link
+        .match(/&page=\d+/gi)
+        .map(page => Number(page.split('=').pop()))
+        .pop();
+
+      params.page = lastPage;
+
+      return getCommitsPage(params).then(
+        response => response.data.length + PER_PAGE * (lastPage - 1)
+      );
+    }
+
+    return data.length;
+  };
+
+/**
+ * @typedef {Record<string, number>} Language
+ *
+ * @typedef {{
+ *  languages: Language,
+ *  participation: { [key: string]: Record<string, number> },
+ *  commits: number,
+ *  issues: number
+ * }} Repo
+ *
+ * @param {string} repoName
+ * @param {string} login
+ * @returns {Promise<Repo[]>}
+ */
+const getRepoStats = async (repoName, login) => {
+  const getter = getOneStat(login, repoName);
+  const counter = count(login, repoName);
+
+  const promises = [];
+  ['languages', 'stats/participation'].forEach(key => {
+    promises.push(getter(key));
+  });
+
+  promises.push(counter('commits'));
+
+  const date = new Date();
+  date.setDate(date.getDate() - 30);
+  promises.push(
+    counter('issues', {
+      state: 'closed',
+      since: date.toISOString(),
+    })
+  );
+
+  return Promise.all(promises).then(
+    ([languages, participation, commits, issues]) => ({
+      languages,
+      participation,
+      commits,
+      issues,
+    })
+  );
+};
+
+/**
+ *
+ * @param {string} language
+ * @returns {{
+ *  name: string,
+ *  color: string,
+ * }}
+ */
+const getNameAndColor = language => {
+  const { color, aliases, ace_mode: aceMode } = colors.get(language);
+
+  let name = aceMode;
+  if (aceMode.length > 6 && Array.isArray(aliases) && aliases.length > 0) {
+    const alias = aliases.sort((a, b) => a.length - b.length).shift();
+    if (alias.length < aceMode.length) {
+      name = alias;
+    }
+  }
+
+  return {
+    name,
+    color,
+  };
+};
+
+/**
+ *
+ * @param {Repo[]} repos
+ * @returns {{
+ *  name: string,
+ *  color: string,
+ *  usage: string,
+ *  percent: number
+ * }[]}
+ */
+const calcUsage = repos => {
+  let highUsage = '';
+  const result = repos.reduce(
+    (usage, { languages }) => {
+      const names = Object.keys(languages);
+
+      names.forEach(languageName => {
+        const languageUsage = languages[languageName];
+        let language = usage[languageName];
+
+        usage.total += languageUsage;
+
+        if (!language) {
+          usage[languageName] = {
+            ...getNameAndColor(languageName),
+            usage: languageUsage,
+          };
+          language = usage[languageName];
+        } else {
+          language.usage += languageUsage;
+        }
+
+        if (
+          highUsage.length === 0 ||
+          (highUsage !== languageName &&
+            language.usage > usage[highUsage].usage)
+        ) {
+          highUsage = languageName;
+        }
+      });
+
+      return usage;
     },
-    {
-      total: 0,
-      repositories: 0,
-    }
+    { total: 0 }
   );
 
-  return {
-    key: 'recentsCommit',
-    title: 'Commits in\nlast 7 days',
-    value: recentCommits.total,
-    description: `in ${recentCommits.repositories} repo(s)`,
-  };
-}
+  const { total, ...languages } = result;
+  const names = Object.keys(languages);
 
-function calcCommitsAverage(repos) {
-  const commitsTotal = repos.reduce((sum, { commits }) => {
+  let sum = 0;
+  names.forEach(language => {
+    const { name, color, usage } = languages[language];
+    const percent = Number(((usage / total) * 100).toPrecision(2));
+
+    sum += percent;
+    languages[language] = {
+      name,
+      color,
+      percent,
+      usage: `${percent}%`,
+    };
+  });
+
+  languages[highUsage].percent += 100 - sum;
+  languages[highUsage].usage = `${languages[highUsage].percent}%`;
+
+  return Object.values(languages);
+};
+
+/**
+ * @typedef {{
+ *  key: string,
+ *  title: string,
+ *  value: number,
+ *  description: string,
+ * }} Stat
+ *
+ * @param {Repo[]} repos
+ * @return {Stat}
+ */
+const getCommitsAverage = repos => {
+  const total = repos.reduce((sum, { commits }) => {
     return sum + commits;
   }, 0);
 
-  const average = Math.floor(commitsTotal / repos.length);
+  const average = Math.floor(total / repos.length);
 
   return {
-    key: 'commitsAverage',
+    key: 'commits_average',
     title: 'Commits\nAverage',
     value: average || 0,
     description: `in ${repos.length} repo(s)`,
   };
-}
+};
 
-function compareByUsage(a, b) {
-  if (a && b.usage < a.usage) {
-    return a;
-  }
-  return b;
-}
-
-function calculateUsage(language, usageTotal) {
-  const usagePercent = Number(
-    ((language.usage / usageTotal) * 100).toPrecision(2)
+/**
+ *
+ * @param {Repo[]} repos
+ * @returns {Stat}
+ */
+const getLastWeekCommits = repos => {
+  const commits = repos.reduce(
+    ({ total, repositories }, { participation: { owner } }) => {
+      const amount = owner.pop();
+      if (amount > 0) {
+        return {
+          total: total + amount,
+          repositories: repositories + 1,
+        };
+      }
+      return { total, repositories };
+    },
+    {
+      total: 0,
+      repositories: 0,
+    }
   );
 
   return {
-    ...language,
-    usage: usagePercent,
-    percent: usagePercent,
+    key: 'recent_commits',
+    title: 'Commits in\nlast 7 days',
+    value: commits.total,
+    description: `in ${commits.repositories} repo(s)`,
   };
-}
+};
 
-function calcLanguagesUsage(results) {
-  const languages = {};
-  let usageTotal = 0;
-
-  results.forEach(({ languages: repoUsage }) => {
-    Object.keys(repoUsage).forEach(languageName => {
-      const usage = repoUsage[languageName];
-      const language = languages[languageName];
-
-      usageTotal += usage;
-
-      if (language) {
-        language.usage += usage;
-      } else {
-        const { color, aliases, ace_mode } = colors.get(languageName);
-
-        let languageColorName = ace_mode;
-        if (ace_mode.length > 6 && aliases) {
-          languageColorName = aliases
-            .sort((a, b) => a.length - b.length)
-            .shift();
-        }
-
-        languages[languageName] = {
-          name: languageColorName,
-          usage,
-          color,
+/**
+ *
+ * @param {Repo[]} repos
+ * @returns {Stat}
+ */
+const getIssuesClosedInLast30Days = repos => {
+  const issues = repos.reduce(
+    ({ total, repositories }, { total: amount }) => {
+      if (amount > 0) {
+        return {
+          total: total + amount,
+          repositories: repositories + 1,
         };
       }
-    });
-  });
-
-  let rest = 100;
-  const percents = Object.keys(languages).map(key => {
-    const usage = calculateUsage(languages[key], usageTotal);
-    rest -= usage.percent;
-    return usage;
-  });
-
-  const languageMostUsed = percents.reduce(compareByUsage, null);
-  rest = Number(rest.toPrecision(2));
-
-  languageMostUsed.usage += rest;
-  languageMostUsed.percent += rest;
-
-  return percents;
-}
-
-function countRepoStat(login, repoName) {
-  return async (path, params = { per_page: 100 }) =>
-    api
-      .get(`/repos/${login}/${repoName}/${path}`, params)
-      .then(({ data, headers }) => {
-        if (headers.link) {
-          const link = headers.link
-            .split(',')
-            .find(part => part.search(/rel="last"/i) > -1);
-
-          if (link) {
-            const page = link
-              .match(/&page=\d+/i)
-              .pop()
-              .replace(/&page=/i, '');
-
-            params.params.page = page;
-            return api
-              .get(`/repos/${login}/${repoName}/${path}`, params)
-              .then(response => {
-                return (
-                  params.params.per_page * (page - 1) + response.data.length
-                );
-              });
-          }
-        }
-
-        return data.length;
-      });
-}
-
-function getRepoStat(login, repoName) {
-  return async path => api.get(`/repos/${login}/${repoName}/${path}`);
-}
-
-async function getReposStats({ login, repos }) {
-  const promises = repos.map(async repoName => {
-    const result = {};
-    const perPage = 100;
-
-    const date = new Date();
-    date.setDate(date.getDate() - 30);
-
-    const getStat = getRepoStat(login, repoName);
-    const countStat = countRepoStat(login, repoName);
-
-    return Promise.all([
-      getStat('languages').then(response => {
-        result.languages = response.data;
-      }),
-      getStat('stats/participation').then(response => {
-        result.participation = response.data;
-      }),
-      countStat('commits', {
-        params: {
-          per_page: perPage,
-        },
-      }).then(count => {
-        result.commits = count;
-      }),
-      countStat('issues', {
-        params: {
-          per_page: perPage,
-          state: 'closed',
-          since: date.toISOString(),
-        },
-      }).then(count => {
-        result.issues = count;
-      }),
-    ]).then(() => result);
-  });
-
-  return Promise.all(promises);
-}
-
-async function handleReposResponse({ data, headers }, login) {
-  const repos = data.map(({ name }) => name);
-
-  if (headers.link) {
-    const next = headers.link
-      .split(',')
-      .find(url => url.search(/rel="next"/g) > -1);
-
-    if (next) {
-      const url = next.split(';').shift().replace(/<|>/g, '');
-
-      return api
-        .get(url)
-        .then(response => {
-          return handleReposResponse(response, login);
-        })
-        .then(response => {
-          return {
-            repos: [...response.repos, ...repos],
-            login,
-          };
-        });
+      return { total, repositories };
+    },
+    {
+      total: 0,
+      repositories: 0,
     }
-  }
+  );
 
   return {
-    repos,
-    login,
+    key: 'recent_issues',
+    title: 'Issues closed\nin last 30 days',
+    value: issues.total,
+    description: `in ${issues.repositories} repo(s)`,
   };
-}
+};
 
-async function getRepos(login) {
-  return api
-    .get(`/users/${login}/repos`)
-    .then(response => handleReposResponse(response, login));
-}
+/**
+ *
+ * @param {Repo[]} repos
+ * @returns {Stat[]}
+ */
+const calcStats = repos =>
+  [getCommitsAverage, getLastWeekCommits, getIssuesClosedInLast30Days].reduce(
+    (stats, cb) => {
+      stats.push(cb(repos));
+      return stats;
+    },
+    []
+  );
 
-async function getUser(login) {
-  return api
-    .get(`/users/${login}`)
-    .then(({ data: { name, avatar_url, html_url } }) => {
-      return {
-        name,
-        avatar_url,
-        login,
-        url: html_url,
-      };
-    });
-}
-
-async function getProfileDate(login) {
-  const result = { stats: [] };
-  const repos = await getUser(login)
-    .then(user => {
-      result.user = user;
-      return user.login;
-    })
-    .then(getRepos)
-    .then(getReposStats)
-    .catch(err => {
-      throw err;
-    });
-
-  result.languages = calcLanguagesUsage(repos);
-  [
-    calcCommitsAverage,
-    calcLastWeekCommits,
-    calcIssuesClosedInLast30Days,
-  ].forEach(func => {
-    result.stats.push(func(repos));
-  });
-
-  return fs.promises.writeFile(
+const save = async result =>
+  fs.promises.writeFile(
     `${process.cwd()}/scripts/stats.json`,
     JSON.stringify(result, null, 2)
   );
-}
 
-if (!userName) {
-  const reader = createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
-
-  reader.question("Type the profile's username: \n", input => {
-    getProfileDate(input).then(process.exit);
-  });
-} else {
-  getProfileDate(userName);
-}
+getUser(userName)
+  .then(user =>
+    getReposList(user.login)
+      .then(repos =>
+        Promise.all(repos.map(repo => getRepoStats(repo, user.login)))
+      )
+      .then(stats => ({
+        user,
+        languages: calcUsage(stats),
+        stats: calcStats(stats),
+      }))
+  )
+  .then(save);
