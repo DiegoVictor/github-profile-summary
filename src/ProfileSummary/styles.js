@@ -97,7 +97,7 @@ export const Language = styled.div`
   width: ${props => props.usage}%;
 
   &:hover {
-    min-width: 70%;
+    min-width: 55%;
 
     ~ div {
       min-width: 5%;
@@ -106,7 +106,7 @@ export const Language = styled.div`
 
   @media (max-width: 600px) {
     & {
-      min-width: ${props => (props.selected ? '70%' : '5%')};
+      min-width: ${props => (props.selected ? '55%' : '5%')};
     }
   }
 
