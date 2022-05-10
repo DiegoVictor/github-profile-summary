@@ -88,7 +88,7 @@ export const Language = styled.div`
   font-style: normal;
   font-weight: 900;
   height: 100%;
-  min-width: 5%;
+  min-width: ${props => `${45 / props.total}%`};
   overflow: hidden;
   padding: 5px;
   position: relative;
@@ -97,16 +97,16 @@ export const Language = styled.div`
   width: ${props => props.usage}%;
 
   &:hover {
-    min-width: 55%;
+    min-width: 50%;
 
-    ~ div {
-      min-width: 5%;
+    + div {
+      min-width: ${props => `${45 / props.total}%`};
     }
   }
 
   @media (max-width: 600px) {
     & {
-      min-width: ${props => (props.selected ? '55%' : '5%')};
+      min-width: ${props => (props.selected ? '50%' : `${45 / props.total}%`)};
     }
   }
 

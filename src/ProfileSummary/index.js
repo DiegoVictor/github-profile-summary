@@ -27,6 +27,7 @@ function ProfileSummary({ data }) {
       usage={percent}
       color={color}
       selected={selected}
+      total={data.languages.length}
       data-testid={`language-${name}`}
       data-selected={selected}
       onClick={() => setSelectedLanguage(selected ? '' : name)}
