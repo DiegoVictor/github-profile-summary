@@ -1,0 +1,108 @@
+{
+  "user": {
+    "name": "Diego Victor",
+    "avatar_url": "https://avatars.githubusercontent.com/u/15165349?v=4",
+    "login": "diegovictor",
+    "url": "https://github.com/DiegoVictor"
+  },
+  "languages": [
+    {
+      "name": "js",
+      "color": "#f1e05a",
+      "percent": 45.72,
+      "usage": "45.72%"
+    },
+    {
+      "name": "sh",
+      "color": "#89e051",
+      "percent": 0.2,
+      "usage": "0.2%"
+    },
+    {
+      "name": "dockerfile",
+      "color": "#384d54",
+      "percent": 0.06,
+      "usage": "0.06%"
+    },
+    {
+      "name": "objc",
+      "color": "#438eff",
+      "percent": 1.16,
+      "usage": "1.16%"
+    },
+    {
+      "name": "ruby",
+      "color": "#701516",
+      "percent": 0.97,
+      "usage": "0.97%"
+    },
+    {
+      "name": "java",
+      "color": "#b07219",
+      "percent": 1.35,
+      "usage": "1.35%"
+    },
+    {
+      "name": "python",
+      "color": "#76d275",
+      "percent": 0.34,
+      "usage": "0.34%"
+    },
+    {
+      "name": "html",
+      "color": "#e34c26",
+      "percent": 1.16,
+      "usage": "1.16%"
+    },
+    {
+      "name": "ts",
+      "color": "#2b7489",
+      "percent": 47.41,
+      "usage": "47.41%"
+    },
+    {
+      "name": "css",
+      "color": "#563d7c",
+      "percent": 0.88,
+      "usage": "0.88%"
+    },
+    {
+      "name": "hbs",
+      "color": "#f7931e",
+      "percent": 0.4,
+      "usage": "0.4%"
+    },
+    {
+      "name": "golang",
+      "color": "#00ADD8",
+      "percent": 0.34,
+      "usage": "0.34%"
+    },
+    {
+      "name": "batchfile",
+      "color": "#3B2F63",
+      "percent": 0.01,
+      "usage": "0.01%"
+    }
+  ],
+  "stats": [
+    {
+      "key": "commits_average",
+      "title": "Commits\nAverage",
+      "value": 121,
+      "description": "in 61 repo(s)"
+    },
+    {
+      "key": "recent_commits",
+      "title": "Commits in\nlast 7 days",
+      "value": 49,
+      "description": "in 5 repo(s)"
+    },
+    {
+      "key": "recent_issues",
+      "title": "Issues closed\nin last 30 days",
+      "value": 0,
+      "description": "in 0 repo(s)"
+    }
+  ]
+}
