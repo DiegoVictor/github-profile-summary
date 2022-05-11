@@ -176,7 +176,7 @@ const getNameAndColor = language => {
 
   let name = aceMode;
   if (aceMode.length > 6 && Array.isArray(aliases) && aliases.length > 0) {
-    const alias = aliases.sort((a, b) => a.length - b.length).shift();
+    const [alias] = aliases.sort((a, b) => a.length - b.length);
     if (alias.length < aceMode.length) {
       name = alias;
     }
@@ -207,26 +207,25 @@ const calcUsage = repos => {
 
       names.forEach(languageName => {
         const languageUsage = languages[languageName];
-        let language = usage[languageName];
+        const { name, color } = getNameAndColor(languageName);
 
         usage.total += languageUsage;
 
-        if (!language) {
-          usage[languageName] = {
-            ...getNameAndColor(languageName),
+        if (!usage[name]) {
+          usage[name] = {
+            name,
+            color,
             usage: languageUsage,
           };
-          language = usage[languageName];
         } else {
-          language.usage += languageUsage;
+          usage[name].usage += languageUsage;
         }
 
         if (
           highUsage.length === 0 ||
-          (highUsage !== languageName &&
-            language.usage > usage[highUsage].usage)
+          (highUsage !== name && usage[name].usage > usage[highUsage].usage)
         ) {
-          highUsage = languageName;
+          highUsage = name;
         }
       });
 
