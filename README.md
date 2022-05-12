@@ -27,16 +27,15 @@ yarn add @diegovictor/github-profile-summary
 ```
 
 # Usage
-So easy than make a limone:
+So easy than make a lemonade:
 ```js
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom/client";
 import { ProfileSummary } from '@diegovictor/github-profile-summary';
 
-ReactDOM.render(
-  <ProfileSummary data={data} />,
-  document.getElementById('root')
-);
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
+
 ```
 
 ## Structure
