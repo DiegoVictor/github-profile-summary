@@ -32,10 +32,10 @@ So easy than make a lemonade:
 import React from 'react';
 import ReactDOM from "react-dom/client";
 import { ProfileSummary } from '@diegovictor/github-profile-summary';
+import data from "./data.json";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<App />);
-
+root.render(<ProfileSummary data={data} />,);
 ```
 
 ## Structure
