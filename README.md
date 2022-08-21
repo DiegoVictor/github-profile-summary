@@ -9,10 +9,10 @@
 [![jest](https://img.shields.io/badge/jest-28.1.0-brightgreen?style=flat-square&logo=jest)](https://jestjs.io/)
 [![coverage](https://img.shields.io/codecov/c/gh/DiegoVictor/github-profile-summary?logo=codecov&style=flat-square)](https://codecov.io/gh/DiegoVictor/github-profile-summary)
 [![airbnb-style](https://flat.badgen.net/badge/style-guide/airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
-[![MIT License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](https://raw.githubusercontent.com/DiegoVictor/github-profile-summary/master/LICENSE)
+[![MIT License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](https://raw.githubusercontent.com/DiegoVictor/github-profile-summary/main/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)<br>
 
-![DiegoVictor](https://raw.githubusercontent.com/DiegoVictor/github-profile-summary/master/screenshots/demo.gif)
+![DiegoVictor](https://raw.githubusercontent.com/DiegoVictor/github-profile-summary/main/screenshots/demo.gif)
 
 Use this component to show a summary of your github stats with a cool design 😎
 
