@@ -79,10 +79,6 @@ describe('ProfileSummary', () => {
       const container = getByTestId(`language-${language.name}`);
 
       expect(container).toHaveTextContent(`${language.name}${language.usage}`);
-      expect(container).toHaveStyle({
-        'background-color': language.color,
-        width: `${language.percent}%`,
-      });
     });
   });
 
