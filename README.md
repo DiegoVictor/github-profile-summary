@@ -1,4 +1,5 @@
 # Github Profile Summary
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/DiegoVictor/github-profile-summary/config.yml?logo=github&style=flat-square)](https://github.com/DiegoVictor/github-profile-summary/actions)
 [![npm](https://img.shields.io/npm/v/@diegovictor/github-profile-summary?style=flat-square)](https://www.npmjs.com/package/@diegovictor/github-profile-summary)
 [![react](https://img.shields.io/badge/reactjs-18.1.0-61dafb?style=flat-square&logo=react)](https://reactjs.org/)
 [![styled-components](https://img.shields.io/badge/styled_components-6.0.7-db7b86?style=flat-square&logo=styled-components)](https://styled-components.com/)
