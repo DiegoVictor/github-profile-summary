@@ -1,0 +1,19 @@
+name: Pipeline
+on:
+  push:
+    branches: [ main ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      REACT_APP_API_URL: 'http://localhost:3333'
+    steps:
+      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - name: Run tests
+        run: |
+          npm ci
+          npm run test
+      - uses: codecov/codecov-action@v3
+        with:
+          directory: ./tests/coverage/
