@@ -3,7 +3,7 @@ on:
   push:
     branches: [ main ]
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     env:
       REACT_APP_API_URL: 'http://localhost:3333'
