@@ -8,8 +8,8 @@ jobs:
     env:
       REACT_APP_API_URL: 'http://localhost:3333'
     steps:
-      - uses: actions/setup-node@v4
-      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v6
+      - uses: actions/checkout@v6
       - name: Run tests
         run: |
           npm ci
